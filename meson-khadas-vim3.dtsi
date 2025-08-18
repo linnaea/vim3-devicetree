@@ -288,6 +288,12 @@
 
 &cpu_thermal {
 	trips {
+		cpu_active_slow: cpu-active {
+			temperature = <73000>; /* millicelsius */
+			hysteresis = <3000>; /* millicelsius */
+			type = "active";
+		};
+
 		cpu_active: cpu-active {
 			temperature = <80000>; /* millicelsius */
 			hysteresis = <2000>; /* millicelsius */
@@ -297,8 +303,30 @@
 
 	cooling-maps {
 		map {
+			trip = <&cpu_active_slow>;
+			cooling-device = <&khadas_mcu THERMAL_NO_LIMIT 1>;
+		};
+
+		map {
 			trip = <&cpu_active>;
-			cooling-device = <&khadas_mcu THERMAL_NO_LIMIT THERMAL_NO_LIMIT>;
+			cooling-device = <&khadas_mcu 1 THERMAL_NO_LIMIT>;
+		};
+	};
+};
+
+&ddr_thermal {
+	trips {
+		ddr_active: ddr-active {
+			temperature = <75000>; /* millicelsius */
+			hysteresis = <2000>; /* millicelsius */
+			type = "active";
+		};
+	};
+
+	cooling-maps {
+		map {
+			trip = <&ddr_active>;
+			cooling-device = <&khadas_mcu THERMAL_NO_LIMIT 1>;
 		};
 	};
 };
