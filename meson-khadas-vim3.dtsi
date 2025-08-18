@@ -449,6 +449,13 @@
 	brcmf: wifi@1 {
 		reg = <1>;
 		compatible = "brcm,bcm4329-fmac";
+		/*
+		interrupt-parent = <&gpio_intc>;
+		interrupts = <IRQID_GPIOX_7 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-names = "host-wake";
+		*/
+		pinctrl-0 = <&wifi_irq_pin>;
+		pinctrl-names = "default";
 	};
 };
 
@@ -547,9 +554,19 @@
 	bluetooth {
 		compatible = "brcm,bcm43438-bt";
 		shutdown-gpios = <&gpio GPIOX_17 GPIO_ACTIVE_HIGH>;
-		max-speed = <2000000>;
+		max-speed = <3000000>;
 		clocks = <&wifi32k>;
 		clock-names = "lpo";
+
+		pinctrl-0 = <&bt_irq_pin>;
+		pinctrl-names = "default";
+		interrupt-parent = <&gpio_intc>;
+		interrupts = <IRQID_GPIOX_18 IRQ_TYPE_EDGE_FALLING>;
+		interrupt-names = "host-wakeup";
+
+		vbat-supply = <&vsys_3v3>;
+		vddio-supply = <&vddao_1v8>;
+		device-wakeup-gpios = <&gpio GPIOX_19 GPIO_ACTIVE_HIGH>;
 	};
 };
 
@@ -586,6 +603,28 @@
 		mux {
 			groups = "GPIOAO_8";
 			function = "gpio_aobus";
+			bias-pull-up;
+			input-enable;
+			output-disable;
+		};
+	};
+};
+
+&periphs_pinctrl {
+	wifi_irq_pin: wifi-irq-pin {
+		mux {
+			groups = "GPIOX_7";
+			function = "gpio_periphs";
+			bias-pull-up;
+			input-enable;
+			output-disable;
+		};
+	};
+
+	bt_irq_pin: bt-irq-pin {
+		mux {
+			groups = "GPIOX_18";
+			function = "gpio_periphs";
 			bias-pull-up;
 			input-enable;
 			output-disable;
