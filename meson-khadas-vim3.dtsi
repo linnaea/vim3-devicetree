@@ -5,6 +5,7 @@
  * Copyright (c) 2019 Christian Hewitt <christianshewitt@gmail.com>
  */
 
+#include <dt-bindings/usb/pd.h>
 #include <dt-bindings/input/input.h>
 #include <dt-bindings/leds/common.h>
 #include <dt-bindings/gpio/meson-g12a-gpio.h>
@@ -367,6 +368,31 @@
 		#gpio-cells = <2>;
 	};
 
+	usb-typec@22 {
+		compatible = "fcs,fusb302";
+		reg = <0x22>;
+		pinctrl-0 = <&fusb302_irq_pin>;
+		pinctrl-names = "default";
+		interrupt-parent = <&gpio_intc>;
+		interrupts = <IRQID_GPIOAO_8 IRQ_TYPE_LEVEL_LOW>;
+		vbus-supply = <&dc_in>;
+
+		connector {
+			compatible = "usb-c-connector";
+			data-role = "dual";
+			pd-revision = /bits/ 8 <0x2 0x0 0x1 0x2>;
+			power-role = "sink";
+			op-sink-microwatt = <15000000>;
+			sink-pdos = <PDO_FIXED(5000, 3000, PDO_FIXED_USB_COMM | PDO_FIXED_DATA_SWAP)>, <PDO_VAR(6000, 15000, 3000)>;
+
+			port {
+				typec_ep: endpoint {
+					remote-endpoint = <&otg_ep>;
+				};
+			};
+		};
+	};
+
 	rtc: rtc@51 {
 		compatible = "haoyu,hym8563";
 		reg = <0x51>;
@@ -547,5 +573,22 @@
 
 &usb {
 	status = "okay";
-	dr_mode = "peripheral";
+
+	port {
+		otg_ep: endpoint {
+			remote-endpoint = <&typec_ep>;
+		};
+	};
+};
+
+&ao_pinctrl {
+	fusb302_irq_pin: fusb302-irq-pin {
+		mux {
+			groups = "GPIOAO_8";
+			function = "gpio_aobus";
+			bias-pull-up;
+			input-enable;
+			output-disable;
+		};
+	};
 };
