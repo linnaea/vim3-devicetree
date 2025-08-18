@@ -156,6 +156,19 @@
 		enable-active-high;
 	};
 
+	vddio_c: regulator-vddio-c {
+		compatible = "regulator-gpio";
+		regulator-name = "VDDIO_C";
+		regulator-min-microvolt = <1800000>;
+		regulator-max-microvolt = <3300000>;
+		regulator-always-on;
+		vin-supply = <&vsys_3v3>;
+
+		gpios = <&gpio_expander 7 GPIO_ACTIVE_HIGH>;
+		states = <1800000 0x1>,
+			 <3300000 0x0>;
+	};
+
 	hdmi-connector {
 		compatible = "hdmi-connector";
 		type = "a";
