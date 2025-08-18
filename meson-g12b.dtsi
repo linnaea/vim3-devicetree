@@ -48,7 +48,9 @@
 			compatible = "arm,cortex-a53";
 			reg = <0x0 0x0>;
 			enable-method = "psci";
-			capacity-dmips-mhz = <592>;
+			capacity-dmips-mhz = <512>;
+			dynamic-power-coefficient = <417>;
+			clock-latency = <50000>;
 			d-cache-line-size = <32>;
 			d-cache-size = <0x8000>;
 			d-cache-sets = <32>;
@@ -65,7 +67,9 @@
 			compatible = "arm,cortex-a53";
 			reg = <0x0 0x1>;
 			enable-method = "psci";
-			capacity-dmips-mhz = <592>;
+			capacity-dmips-mhz = <512>;
+			dynamic-power-coefficient = <417>;
+			clock-latency = <50000>;
 			d-cache-line-size = <32>;
 			d-cache-size = <0x8000>;
 			d-cache-sets = <32>;
@@ -83,6 +87,8 @@
 			reg = <0x0 0x100>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <759>;
+			clock-latency = <50000>;
 			d-cache-line-size = <32>;
 			d-cache-size = <0x8000>;
 			d-cache-sets = <32>;
@@ -100,6 +106,8 @@
 			reg = <0x0 0x101>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <759>;
+			clock-latency = <50000>;
 			d-cache-line-size = <32>;
 			d-cache-size = <0x8000>;
 			d-cache-sets = <32>;
@@ -117,6 +125,8 @@
 			reg = <0x0 0x102>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <759>;
+			clock-latency = <50000>;
 			d-cache-line-size = <64>;
 			d-cache-size = <0x10000>;
 			d-cache-sets = <64>;
@@ -134,6 +144,8 @@
 			reg = <0x0 0x103>;
 			enable-method = "psci";
 			capacity-dmips-mhz = <1024>;
+			dynamic-power-coefficient = <759>;
+			clock-latency = <50000>;
 			d-cache-line-size = <64>;
 			d-cache-size = <0x10000>;
 			d-cache-sets = <64>;
