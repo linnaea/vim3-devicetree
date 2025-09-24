@@ -1,6 +1,6 @@
 git checkout upstream
-for f in *.{dts,dtsi}; do wget -O $f https://github.com/torvalds/linux/raw/refs/heads/master/arch/arm64/boot/dts/amlogic/$f; done
-find dt-bindings/ -type f | while read f; do wget -O $f https://github.com/torvalds/linux/raw/refs/heads/master/include/$f; done
+for f in *.{dts,dtsi}; do wget -O $f "https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git/plain/arch/arm64/boot/dts/amlogic/$f?h=for-next"; done
+find dt-bindings/ -type f | while read f; do wget -O $f "https://git.kernel.org/pub/scm/linux/kernel/git/amlogic/linux.git/plain/include/$f?h=for-next"; done
 rm -f *.dtsc *.dtb
 git commit -a -m 'Update from upstream'
 git checkout master
